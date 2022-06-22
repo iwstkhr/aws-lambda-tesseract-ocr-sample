@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Tesseract OCR Sample with AWS Lambda Container Images using AWS SAM
+Resources:
+  TesseractOcrSample:
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        Schedule:
+          Type: Schedule
+          Properties:
+            Enabled: true
+            Schedule: cron(0 * * * ? *)
+      MemorySize: 512
+      PackageType: Image
+      Timeout: 900
+    Metadata:
+      DockerTag: latest
+      DockerContext: ./src/
+      Dockerfile: Dockerfile
